@@ -17,7 +17,7 @@ The program provides efficient reporting, issue tracking, and summarization usin
   - Sort QA logs by Product ID, Issue Code, and Date/Time (O(N log N))
   - Generate issue reports across multiple production lines (O(N))
   - Search for earliest occurrence of an issue code per product (O(log N))
-  - Summarize number of issues reported per product (O(N))
+  - Summarise number of issues reported per product (O(N))
   - Handles large-scale QA datasets efficiently
 
 </details>
@@ -26,14 +26,20 @@ The program provides efficient reporting, issue tracking, and summarization usin
   <summary><strong>🧩 Skills Used</strong></summary>
 
   - **C Programming**: Core logic and implementation
-  - **Algorithms & Data Structures**: Sorting, searching, summarization
+  - **Algorithms & Data Structures**: Sorting, searching
   - **Complexity Analysis**: O(N), O(N log N), O(log N) efficiency
-  - **Software Engineering**: Modular code design, pseudocode, and flowcharts
   - **Testing & Debugging**: Ensured correctness with sample QA logs
   - **Version Control**: Git & GitHub for project tracking
 
 </details>
 
-<details>
-  <summary><strong>📂 Project Structure</strong></summary>
+
+
+
+
+
+
+
+
+
 
