@@ -33,6 +33,5 @@ The program provides efficient reporting, issue tracking, and summarization usin
 
 </details>
 
-<details>
   <summary><strong>📂 Project Structure</strong></summary>
 
