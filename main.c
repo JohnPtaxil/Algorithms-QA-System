@@ -136,6 +136,27 @@ int main()
 } // End Main
 
 
+// Function to pass given structure by Prod ID, Issue Code and Date & Time
+void prodLineSort(struct manData prod_line[])
+{
+    int high = TOTAL_SIZE - 1;
+    int low = 0;
+
+    // Deviation of merge sort function that takes manData structs instead of integer arrays
+    // Call function to order product IDs in non descending order
+    prodSort(prod_line, low, high);
+
+    // Call function to order issue codes in non descending order (By Product ID)
+    issueArrange(prod_line);
+
+    // Call function to order date & time in non descending order (By Issue Code)
+    dateArrange(prod_line);
+
+    // Call function to display sorted temporary array
+    displaySort(prod_line);
+}
+
+
 // Function for Task 1
 void task1(struct manData prod_line1[], struct manData prod_line2[], struct manData prod_line3[], struct manData prod_line4[])
 {
@@ -200,4 +221,4 @@ void task1(struct manData prod_line1[], struct manData prod_line2[], struct manD
     // Print Separator
     printf("\n\n\n\n\n");
     
-}
+} // End Function
