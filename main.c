@@ -231,9 +231,11 @@ void prodMerge (struct manData prod_line[], int low, int mid, int high)
     }
 
     // Put temp array contents into actual array contents
-    for (i = low, i < high; i
-    
-}
+    for (i = low; i < high; i++)
+    {
+        prod_line[i] = tempArr[i];
+    } // End For
+} // End Function
 
 
 // Function for Task 1
