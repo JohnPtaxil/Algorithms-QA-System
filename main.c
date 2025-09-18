@@ -157,6 +157,85 @@ void prodLineSort(struct manData prod_line[])
 }
 
 
+// Function to separate elements in given structure
+void prodSort(struct manData prod_line[], int low, int high) 
+{
+    // Initialise mid 
+    int mid;
+
+    // Base Case: array has been checked
+    if (low >= high) 
+    {
+        return; // Pop number off stack
+    } // End If
+    else
+    {
+        // Reinitialise mid 
+        mid = (low + high) / 2;
+
+        // Call Merge Sort for left side
+        prodSort(prod_line, low,  mid);
+
+        // Call Merge Sort for right side
+        prodSort(prod_line, mid + 1, high);
+
+        // Call Function to put array together
+        prodMerge(prod_line, low, mid, high);
+    } // End Else
+} // End Function
+
+
+// Recursive Function to merge separated arrays back together
+void prodMerge (struct manData prod_line[], int low, int mid, int high)
+{
+    // Initialise temporary array
+    struct manData tempArr[TOTAL_SIZE];
+    int i = low; // Index for left side array
+    int j = mid + 1; // Index for right side array
+    int t = low; // Index for temp array
+
+    // While both left and right side still have elements to be checked
+    while (i <= mid && j <= high)
+    {
+        // If number in left array is smaller than right, put left
+        if(prod_line[i].prod_ID <= prod_line[j].prod_ID)
+        {
+            tempArr[t] = prod_line[i];
+            i++; // Increment left side counter
+        } // End If
+        else // Else put right side
+        {
+            tempArr[t] = prod_line[j];
+            j++; // Increment left side counter
+        }
+
+        t++; // Incremenet temporary counter
+    } // End While
+
+    // If right side finished before left
+    // Fill rest of temp array with remainder of left side
+    while (i <= mid)
+    {
+        tempArr[t] = prod_line[i];
+        i++;
+        t++;
+    }
+    
+    // If left side finished before left
+    // Fill rest of temp array with remainder of right side
+    while (j < high)
+    {
+        tempArr[t] = prod_line[j];
+        j++;
+        t++;
+    }
+
+    // Put temp array contents into actual array contents
+    for (i = low, i < high; i
+    
+}
+
+
 // Function for Task 1
 void task1(struct manData prod_line1[], struct manData prod_line2[], struct manData prod_line3[], struct manData prod_line4[])
 {
