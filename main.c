@@ -133,4 +133,71 @@ int main()
         {4, 4857261, {6, 4, 12}, 837594216, {45928, "Engine compressor stall"}, {83759, "Repair engine compressor"}, 425}
     };
 
+} // End Main
+
+
+// Function for Task 1
+void task1(struct manData prod_line1[], struct manData prod_line2[], struct manData prod_line3[], struct manData prod_line4[])
+{
+    // Copy all prod lines to one production line
+    struct manData totalProdLine[TOTAL_SIZE];
+    int i;
+    int j = 0;
+
+    for (i = 0; i < SIZE; i++) 
+    {
+        totalProdLine[j] = prod_line1[i];
+        j++;
+    }
+
+    for (i = 0; i < SIZE; i++) 
+    {
+        totalProdLine[j] = prod_line2[i];
+        j++;
+    }
+
+    for (i = 0; i < SIZE; i++) 
+    {
+        totalProdLine[j] = prod_line3[i];
+        j++;
+    }
+
+    for (i = 0; i < SIZE; i++) 
+    {
+        totalProdLine[j] = prod_line4[i];
+        j++;
+    }
+
+    prodLineSort(totalProdLine);
+
+    // Copy back sorted data
+    j = 0;
+
+    for (i = 0; i < SIZE; i++) 
+    {
+        prod_line1[j] = totalProdLine[i];
+        j++;
+    }
+
+    for (i = 0; i < SIZE; i++) 
+    {
+        prod_line2[j] = totalProdLine[i];
+        j++;
+    }
+
+    for (i = 0; i < SIZE; i++) 
+    {
+        prod_line3[j] = totalProdLine[i];
+        j++;
+    }
+
+    for (i = 0; i < SIZE; i++) 
+    {
+        prod_line4[j] = totalProdLine[i];
+        j++;
+    }
+
+    // Print Separator
+    printf("\n\n\n\n\n");
+    
 }
