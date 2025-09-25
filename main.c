@@ -67,9 +67,14 @@ void dateSort(struct manData prod_line[], int low, int high);
 void dateMerge(struct manData prod_line[], int low, int mid, int high);
 
 // Task 2 functions
+struct node *task2(struct manData prod_line1[], struct manData prod_line2[], struct manData prod_line3[], struct manData prod_line4[]);
 struct node *listCreate(struct manData prod_line1[], struct manData prod_line2[], struct manData prod_line3[], struct manData prod_line4[]);
 struct node *appendNode(struct node *ptr, struct manData data);
 void printList(struct node *ptr);
+
+// Task 3 functions
+void task3(struct node *ptr);
+int binarySearch(struct manData prod_line[], int reqProd, int reqIss, int low, int high);
 
 int main()
 {
@@ -156,6 +161,7 @@ int main()
 
     // Call task one
     task1(prod_line1, prod_line2, prod_line3, prod_line4);
+    task2(prod_line1, prod_line2, prod_line3, prod_line4);
 
 } // End Main
 
@@ -671,4 +677,92 @@ void printList(struct node *ptr)
 
         ptr = ptr->link;
     }
-}
+} // End Function
+
+// Function for task 3 function calls
+void task3(struct node *ptr)
+{
+    // This holds the indices of the earliest occurences of Product ID and Issue Code
+    int position = -1;
+
+    // Can hold earliest occurence from each prod line
+    struct manData tempStruct[TOTAL_SIZE] = {0};
+
+    int reqProd;
+    int reqIss;
+
+    // For binary search
+    int low = 0;
+    int high = TOTAL_SIZE - 1;
+
+    int i = 0;
+
+    // Prompt user for input
+    printf("\t|Product ID & Issue Code Report|");
+
+    while (ptr->link != NULL)
+    {
+        tempStruct[i] = ptr->data;
+
+        ptr = ptr->link;
+        i++;
+    }
+
+    printf("\nEnter a Product ID: ");
+    scanf("%d", &reqProd);
+
+    printf("Enter an Issue Code for that Product ID: ");
+    scanf("%d", &reqIss);
+
+    printf("\nYou Entered: %d - %d\n", reqProd, reqIss);
+
+    // Now use Binary Search
+    position = binarySearch(tempStruct, reqProd, reqIss, low, high);
+
+    // If Product ID or Issue Code does not exist
+    if (position == -1)
+    {
+        printf("\n Product ID or Issue Code Invalid\n");
+    }
+    else
+    {
+        printf("\nEarliest Occurence:\n\t");
+        printf("\n>|Line Code: %d", tempStruct[position].lineNo);
+        printf("\n>|Prod ID: %d\t", tempStruct[position].prod_ID);
+        printf("\n>|Issue Code: %d\t", tempStruct[position].issue.i_code);
+        printf("\n>|Date: %d\t\t", tempStruct[position].time.day);
+        printf("\n>|Time: %d:%d\t\t", tempStruct[position].time.hour, tempStruct[position].time.minute);
+    }
+
+    // Print Separator
+    printf("\n\n\n\n\n");
+} // End Function
+
+// Function to find index of earlier occurence of a requested Prod ID and Issue Code
+int binarySearch(struct manData prod_line[], int reqProd, int reqIss, int low, int high)
+{
+    int earliest_index = -1;
+
+    while (low <= high)
+    {
+        int mid = (low + high) / 2;
+
+        if (prod_line[mid].prod_ID == reqProd && prod_line[mid].issue.i_code == reqIss)
+        {
+            earliest_index = mid;
+            high = mid - 1;
+        }
+
+        else if (prod_line[mid].prod_ID < reqProd || prod_line[mid].prod_ID == reqProd || prod_line[mid].issue.i_code < reqIss)
+        {
+            low = mid + 1;
+        }
+
+        else
+        {
+            high = mid - 1;
+        }
+    }
+
+    return earliest_index;
+} // End Function
