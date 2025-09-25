@@ -41,8 +41,8 @@ struct manData // Structure Template for manufacturing data
 
 struct node // Structure Template for a node (data and address of next node)
 {
-    // struct manData data; // Node data
-    struct node *link; // Pointer to next node
+    struct manData data; // Node data
+    struct node *link;   // Pointer to next node
 };
 
 // 4. Method Signatures
@@ -65,6 +65,11 @@ void issueMerge(struct manData prod_line[], int low, int mid, int high);
 void dateArrange(struct manData prod_line[]);
 void dateSort(struct manData prod_line[], int low, int high);
 void dateMerge(struct manData prod_line[], int low, int mid, int high);
+
+// Task 2 functions
+struct node *listCreate(struct manData prod_line1[], struct manData prod_line2[], struct manData prod_line3[], struct manData prod_line4[]);
+struct node *appendNode(struct node *ptr, struct manData data);
+void printList(struct node *ptr);
 
 int main()
 {
@@ -584,3 +589,86 @@ void displaySort(struct manData prod_line[])
     }
 } // End for
 // End function
+
+// Function for task 2 function calls
+struct node *task2(struct manData prod_line1[], struct manData prod_line2[], struct manData prod_line3[], struct manData prod_line4[])
+{
+    // Create pointer that will point to the entire linked list (equivalent to head)
+    struct node *listPtr;
+
+    // Call function to create a linked list and copy all info to a single linked list
+    listPtr = listCreate(prod_line1, prod_line2, prod_line3, prod_line4);
+
+    // Call function to print info in linked list
+    printList(listPtr);
+
+    // Print Separator
+    printf("\n\n\n\n\n");
+
+    return listPtr;
+} // End Function
+
+// Function to create a linked list with all prod data
+struct node *listCreate(struct manData prod_line1[], struct manData prod_line2[], struct manData prod_line3[], struct manData prod_line4[])
+{
+    // Create head node
+    struct node *head = malloc(sizeof(struct node));
+
+    // Put first struct in prod line 1 into node where head points
+    head->data = prod_line1[0];
+    head->link = NULL;
+
+    // Create new pointer and point at same address in head
+    struct node *ptr = head;
+
+    // Copy all prod line data into linked list
+    for (int i = 1; i < SIZE; i++)
+    {
+        ptr = appendNode(ptr, prod_line1[i]);
+    }
+
+    for (int i = 0; i < SIZE; i++)
+    {
+        ptr = appendNode(ptr, prod_line2[i]);
+    }
+
+    for (int i = 0; i < SIZE; i++)
+    {
+        ptr = appendNode(ptr, prod_line3[i]);
+    }
+
+    for (int i = 0; i < SIZE; i++)
+    {
+        ptr = appendNode(ptr, prod_line4[i]);
+    }
+
+    // Point ptr back to head
+    ptr = head;
+
+    return ptr;
+} // End Function
+
+// Function to append node to end of linked list
+struct node *appendNode(struct node *ptr, struct manData data)
+{
+    struct node *temp = malloc(sizeof(struct node));
+    temp->data = data;
+    temp->link = NULL;
+
+    ptr->link = temp;
+    return temp;
+} // End Function
+
+// Function to print content of a single linked list
+void printList(struct node *ptr)
+{
+    printf("\t\t|Product ID| \t | Issue Code| \t\t|Description|");
+
+    // Check that pointer after current nide is not the tail
+    while (ptr->link != NULL)
+    {
+        printf("\nLine Code [%d]: \t %d\t   %d  \t %s", ptr->data.lineNo, ptr->data.prod_ID, ptr->data.issue.i_code, ptr->data.issue.i_desc);
+
+        ptr = ptr->link;
+    }
+}
