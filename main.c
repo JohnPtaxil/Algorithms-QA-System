@@ -76,6 +76,9 @@ void printList(struct node *ptr);
 void task3(struct node *ptr);
 int binarySearch(struct manData prod_line[], int reqProd, int reqIss, int low, int high);
 
+// Task 4 functions
+void task4(struct node *head);
+
 int main()
 {
     // Declaration of variables
@@ -159,9 +162,16 @@ int main()
             {4, 6938271, {14, 12, 46}, 732615849, {63978, "Engine rough idling"}, {42816, "Inspect and clean fuel injectors"}, 444},
             {4, 4857261, {6, 4, 12}, 837594216, {45928, "Engine compressor stall"}, {83759, "Repair engine compressor"}, 425}};
 
-    // Call task one
+    // Call tasks - CORRECTED VERSION
     task1(prod_line1, prod_line2, prod_line3, prod_line4);
-    task2(prod_line1, prod_line2, prod_line3, prod_line4);
+
+    struct node *head = task2(prod_line1, prod_line2, prod_line3, prod_line4);
+
+    task3(head);
+
+    task4(head);
+
+    return 0;
 
 } // End Main
 
@@ -766,3 +776,55 @@ int binarySearch(struct manData prod_line[], int reqProd, int reqIss, int low, i
 
     return earliest_index;
 } // End Function
+
+// Function for task 4 function calls
+void task4(struct node *head)
+{
+    // Create head pointer
+    struct node *ptr = head;
+
+    // Array containing all unique Product IDs found in your test data
+    int prodArray[PROD_NUM] = {
+        106267292, 185723649, 372894615, 448923781,
+        473926185, 536964182, 638927154, 642357819,
+        654987321, 726148935, 732615849, 749815236,
+        789512364, 789654321, 837594216, 852963741,
+        867541923, 927361845, 946178523};
+
+    // Array of counters for each Issue occurence
+    int issueCounter[PROD_NUM] = {0};
+    int i = 0;
+
+    // Continues until all Prod IDs are checked
+    while (i < PROD_NUM)
+    {
+        if (ptr->data.prod_ID == prodArray[i])
+        {
+            issueCounter[i]++;
+        }
+
+        // Go to next node
+        ptr = ptr->link;
+
+        // Reset Pointer to beginning of linked list
+        if (ptr->link == NULL)
+        {
+            // This time looking for new Prod ID
+            ptr = head;
+
+            // Go to next Prod ID and Issue Counter
+            i++;
+        }
+    }
+
+    // Print info
+    printf("|Product ID| \t   |Issue Counts|");
+
+    for (i = 0; i < PROD_NUM; i++)
+    {
+        printf("\n %d \t |\t %d", prodArray[i], issueCounter[i]);
+    } // End For
+
+    // Print Separator
+    printf("\n\n\n\n\n");
+}
